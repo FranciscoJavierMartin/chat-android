@@ -1,12 +1,13 @@
-package com.azure.firechatapp
+package com.azure.firechatapp.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.azure.firechatapp.R
 
-class LoginActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_main)
     }
 }
