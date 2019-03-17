@@ -13,4 +13,6 @@
     <string name="login_create_account">Create a new account</string>
     <string name="login_go_login">Go back to Login</string>
     <string name="login_fill_all_data">Please fill all the data and confirm password is correct</string>
+    <string name="login_please_try_again">An unexpected error occurred, please try again</string>
+    <string name="login_email_confirmation_sent">An email has been sent to you. Please, confirm before sign in.</string>
 </resources>
