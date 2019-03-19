@@ -21,6 +21,8 @@ class SignUpActivity : AppCompatActivity() {
             goToActivity<LoginActivity> {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
+
+            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
         }
 
         buttonSignUp.setOnClickListener {
@@ -30,7 +32,7 @@ class SignUpActivity : AppCompatActivity() {
             if(isValidEmailAndPassword(email,password)){
                 signUpByEmail(email,password)
             }else{
-                toast(R.string.login_fill_all_data);
+                toast(R.string.login_fill_all_data)
             }
         }
 

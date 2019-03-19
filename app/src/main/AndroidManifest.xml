@@ -16,6 +16,7 @@
         </activity>
         <activity
                 android:name=".activities.login.LoginActivity"
+                android:theme="@style/NoPreview"
                 android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

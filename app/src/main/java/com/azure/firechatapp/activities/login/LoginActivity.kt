@@ -30,8 +30,14 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        textViewForgotPassword.setOnClickListener { goToActivity<ForgotPasswordActivity>() }
-        buttonCreateAccount.setOnClickListener { goToActivity<SignUpActivity>() }
+        textViewForgotPassword.setOnClickListener {
+            goToActivity<ForgotPasswordActivity>()
+            overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right)
+        }
+        buttonCreateAccount.setOnClickListener {
+            goToActivity<SignUpActivity>()
+            overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right)
+        }
     }
 
     private fun logInByEmail(email: String, password: String){
