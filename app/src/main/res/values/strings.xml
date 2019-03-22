@@ -15,4 +15,7 @@
     <string name="login_fill_all_data">Please fill all the data and confirm password is correct</string>
     <string name="login_please_try_again">An unexpected error occurred, please try again</string>
     <string name="login_email_confirmation_sent">An email has been sent to you. Please, confirm before sign in.</string>
+    <string name="login_error_on_email">The email is not valid</string>
+    <string name="login_error_on_password">The password is not valid. Must contains at least one number, one lowercase, one uppercase and a special character and 8 character</string>
+    <string name="login_error_on_confirm_password">Must be equal to password field</string>
 </resources>

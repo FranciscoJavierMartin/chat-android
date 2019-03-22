@@ -3,9 +3,8 @@ package com.azure.firechatapp.activities.login
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.azure.firechatapp.R
-import com.azure.firechatapp.goToActivity
-import com.azure.firechatapp.toast
+
+import com.azure.firechatapp.*
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -36,6 +35,25 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
+        editTextEmail.validate {
+            editTextEmail.error =
+                if(isValidEmail(it)) null
+                else resources.getString(R.string.login_error_on_email)
+
+        }
+
+        editTextPassword.validate {
+            editTextPassword.error =
+                if(isValidPassword(it)) null
+                else resources.getString(R.string.login_error_on_password)
+        }
+
+        editTextConfirmPassword.validate {
+            editTextConfirmPassword.error =
+                if(isValidConfirmPassword(editTextPassword.text.toString(), it)) null
+                else resources.getString(R.string.login_error_on_confirm_password)
+        }
+
 
     }
 
@@ -59,6 +77,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun isValidEmailAndPassword(email:String, password: String): Boolean {
         return !email.isNullOrEmpty() &&
                 !password.isNullOrEmpty() &&
-                password === editTextConfirmPassword.text.toString()
+                password == editTextConfirmPassword.text.toString()
     }
+
+
 }
