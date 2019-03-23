@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.azure.firechatapp.*
+import com.azure.firechatapp.activities.MainActivity
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -90,7 +91,14 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     private fun logInByGoogleAccountIntoFirebase(googleAccount: GoogleSignInAccount){
         val credential = GoogleAuthProvider.getCredential(googleAccount.idToken, null)
         mAuth.signInWithCredential(credential).addOnCompleteListener(this){
-            toast(resources.getString(R.string.login_sign_in_by_google))
+            if(mGoogleApiClient.isConnected){
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient)
+            }
+
+            goToActivity<MainActivity> {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+
         }
     }
 
