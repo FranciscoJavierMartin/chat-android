@@ -1,13 +1,16 @@
 package com.azure.firechatapp.activities.login
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.azure.firechatapp.*
 import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedListener {
@@ -15,6 +18,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     private val mAuth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
     private val mGoogleApiClient: GoogleApiClient by lazy { getGoogleApiClient() }
+    private val REQUEST_CODE_GOOGLE_SIGN_IN = 99
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +45,15 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
             goToActivity<ForgotPasswordActivity>()
             overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right)
         }
+
         buttonCreateAccount.setOnClickListener {
             goToActivity<SignUpActivity>()
             overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right)
+        }
+
+        buttonLogInGoogle.setOnClickListener {
+            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+            startActivityForResult(signInIntent, REQUEST_CODE_GOOGLE_SIGN_IN)
         }
 
         editTextEmail.validate {
@@ -63,6 +73,25 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
     override fun onConnectionFailed(p0: ConnectionResult) {
         toast(R.string.connection_failed)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == REQUEST_CODE_GOOGLE_SIGN_IN){
+            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+            if(result.isSuccess){
+                val account = result.signInAccount
+                logInByGoogleAccountIntoFirebase(account !!)
+            }
+        }
+    }
+
+    private fun logInByGoogleAccountIntoFirebase(googleAccount: GoogleSignInAccount){
+        val credential = GoogleAuthProvider.getCredential(googleAccount.idToken, null)
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this){
+            toast(resources.getString(R.string.login_sign_in_by_google))
+        }
     }
 
     private fun logInByEmail(email: String, password: String){
