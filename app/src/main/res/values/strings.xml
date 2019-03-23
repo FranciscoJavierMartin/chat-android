@@ -12,5 +12,18 @@
     <string name="login_forgot_password">I have forgotten my password</string>
     <string name="login_create_account">Create a new account</string>
     <string name="login_go_login">Go back to Login</string>
+    <string name="login_fill_all_data">Please make sure all the data is correct</string>
+    <string name="login_please_try_again">An unexpected error occurred, please try again</string>
+    <string name="login_email_confirmation_sent">An email has been sent to you. Please, confirm before sign in.</string>
+    <string name="login_error_on_email">Email is not valid</string>
+    <string name="login_error_on_password">The password is not valid. Must contains at least one number, one lowercase,
+        one uppercase and a special character and 8 character
+    </string>
+    <string name="login_error_on_confirm_password">Must be equal to password field</string>
+    <string name="login_user_is_logged">User is now logged in.</string>
+    <string name="login_email_reset">Email has been sent to reset your password.</string>
+    <string name="login_email_address_incorrect">Please make sure the email address is correct.</string>
+    <string name="login_sign_in_by_google">Sign in by google</string>
 
+    <string name="connection_failed">Connection failed</string>
 </resources>
