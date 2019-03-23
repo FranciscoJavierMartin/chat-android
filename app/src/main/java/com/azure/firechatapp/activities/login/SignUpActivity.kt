@@ -27,8 +27,9 @@ class SignUpActivity : AppCompatActivity() {
         buttonSignUp.setOnClickListener {
             val email = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
+            val confirmPassword = editTextConfirmPassword.text.toString()
 
-            if(isValidEmailAndPassword(email,password)){
+            if(isValidEmail(email) && isValidPassword(password) && isValidConfirmPassword(password, confirmPassword)){
                 signUpByEmail(email,password)
             }else{
                 toast(R.string.login_fill_all_data)
@@ -74,11 +75,6 @@ class SignUpActivity : AppCompatActivity() {
             }
     }
 
-    private fun isValidEmailAndPassword(email:String, password: String): Boolean {
-        return !email.isNullOrEmpty() &&
-                !password.isNullOrEmpty() &&
-                password == editTextConfirmPassword.text.toString()
-    }
 
 
 }
