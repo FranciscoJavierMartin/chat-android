@@ -29,7 +29,7 @@
             android:paddingEnd="18dp"
             android:paddingTop="8dp"
             app:layout_constraintEnd_toStartOf="@+id/imageViewProfileRight"
-            app:layout_constraintTop_toTopdOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
             android:id="@+id/textViewTimeRight"
