@@ -90,8 +90,8 @@ class ChatFragment : Fragment() {
 
         chatDBRef.add(newMessage)
             .addOnCompleteListener {
-            activity!!.toast("Message added!")
-        }.addOnFailureListener {
+                activity!!.toast("Message added!")
+            }.addOnFailureListener {
                 activity!!.toast("Message error, try again")
             }
     }
