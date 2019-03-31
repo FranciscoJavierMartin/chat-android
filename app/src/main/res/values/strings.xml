@@ -25,5 +25,13 @@
     <string name="login_email_address_incorrect">Please make sure the email address is correct.</string>
     <string name="login_sign_in_by_google">Sign in by google</string>
 
+    <!-- Common -->
     <string name="connection_failed">Connection failed</string>
+
+    <!-- Bottom navigation menu -->
+    <string name="navigation_bottom_info">Info</string>
+    <string name="navigation_bottom_rates">Rates</string>
+    <string name="navigation_bottom_chat">Chat</string>
+
+    <string name="chat_edittext_message_hint">Write something...</string>
 </resources>
