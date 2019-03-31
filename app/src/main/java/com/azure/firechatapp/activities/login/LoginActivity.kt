@@ -108,7 +108,9 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
                 if(task.isSuccessful){
 
                     if(mAuth.currentUser!!.isEmailVerified){
-                        toast(R.string.login_user_is_logged)
+                        goToActivity<MainActivity> {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        }
                     }else{
                         toast(R.string.login_email_confirmation_sent)
                     }
