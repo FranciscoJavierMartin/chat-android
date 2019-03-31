@@ -45,8 +45,15 @@ class ChatAdapter(val items: List<Message>, val userId: String): RecyclerView.Ad
             textViewTimeRight.text = SimpleDateFormat("hh:mm").format(message.sendAt)
 
             // Picasso load image here
-            Picasso.get().load(message.profileImageURL).resize(100,100)
-                .centerCrop().transform(CircleTransform()).into(imageViewProfileRight)
+            // TODO: Refactor using conditional
+            if(message.profileImageURL.isEmpty()){
+                Picasso.get().load(R.drawable.ic_person_black_24dp).resize(100,100)
+                    .centerCrop().transform(CircleTransform()).into(imageViewProfileRight)
+            }else{
+                Picasso.get().load(message.profileImageURL).resize(100,100)
+                    .centerCrop().transform(CircleTransform()).into(imageViewProfileRight)
+            }
+
         }
     }
 
@@ -56,8 +63,14 @@ class ChatAdapter(val items: List<Message>, val userId: String): RecyclerView.Ad
             textViewTimeLeft.text = SimpleDateFormat("hh:mm").format(message.sendAt)
 
             // Picasso load image here
-            Picasso.get().load(message.profileImageURL).resize(100,100)
-                .centerCrop().transform(CircleTransform()).into(imageViewProfileLeft)
+            // TODO: Refactor using conditional
+            if(message.profileImageURL.isEmpty()){
+                Picasso.get().load(R.drawable.ic_person_black_24dp).resize(100,100)
+                    .centerCrop().transform(CircleTransform()).into(imageViewProfileLeft)
+            }else{
+                Picasso.get().load(message.profileImageURL).resize(100,100)
+                    .centerCrop().transform(CircleTransform()).into(imageViewProfileLeft)
+            }
         }
     }
 }
