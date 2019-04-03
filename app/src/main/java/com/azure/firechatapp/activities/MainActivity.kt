@@ -36,6 +36,8 @@ class MainActivity : ToolbarActivity() {
 
     private fun setUpViewPager(adapter: PagerAdapter){
         viewPager.adapter = adapter
+        // Keep in memory 3 tabs. Use with caution
+        viewPager.offscreenPageLimit = 3
         viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}

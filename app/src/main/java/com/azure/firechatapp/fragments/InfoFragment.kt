@@ -8,15 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.azure.firechatapp.R
+import com.azure.firechatapp.toast
 import com.azure.firechatapp.utils.CircleTransform
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_info.view.*
-
+import java.util.EventListener
 
 class InfoFragment : Fragment() {
 
@@ -44,6 +43,9 @@ class InfoFragment : Fragment() {
         setUpCurrentUser()
         setUpCurrentUserInfoUI()
 
+        // Total messages firebase style
+        subscribeToTotalMessagesFirebaseStyle()
+
         return _view
     }
 
@@ -65,5 +67,26 @@ class InfoFragment : Fragment() {
             Picasso.get().load(R.drawable.ic_person_black_24dp).resize(300,300)
                 .centerCrop().transform(CircleTransform()).into(_view.imageViewInfoAvatar)
         }
+    }
+
+    private fun subscribeToTotalMessagesFirebaseStyle(){
+        chatSubscription = chatDBRef.addSnapshotListener(object: EventListener, com.google.firebase.firestore.EventListener<QuerySnapshot>{
+            override fun onEvent(querySnapshot: QuerySnapshot?, exception: FirebaseFirestoreException?) {
+                exception?.let{
+                    activity!!.toast("Exception")
+                    // TODO: Refactor for a better approach using firebase functions
+                    return
+                }
+
+                querySnapshot?.let {
+                    _view.textViewInfoTotalMessages.text = "${it.size()}"
+                }
+            }
+        })
+    }
+
+    override fun onDestroyView() {
+        chatSubscription?.remove()
+        super.onDestroyView()
     }
 }
