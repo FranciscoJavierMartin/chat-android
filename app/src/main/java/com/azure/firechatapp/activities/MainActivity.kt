@@ -1,14 +1,19 @@
 package com.azure.firechatapp.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
+import android.view.Menu
 import android.view.MenuItem
 import com.azure.firechatapp.R
+import com.azure.firechatapp.activities.login.LoginActivity
 import com.azure.firechatapp.adapters.PagerAdapter
 import com.azure.firechatapp.fragments.ChatFragment
 import com.azure.firechatapp.fragments.InfoFragment
 import com.azure.firechatapp.fragments.RatesFragment
+import com.azure.firechatapp.goToActivity
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : ToolbarActivity() {
@@ -23,6 +28,23 @@ class MainActivity : ToolbarActivity() {
 
         setUpViewPager(getPagerAdapter())
         setUpBottomNavigationBar()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.general_options_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_log_out -> {
+                FirebaseAuth.getInstance().signOut()
+                goToActivity<LoginActivity> {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getPagerAdapter(): PagerAdapter {
