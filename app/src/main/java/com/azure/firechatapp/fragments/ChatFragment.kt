@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import com.azure.firechatapp.R
 import com.azure.firechatapp.adapters.ChatAdapter
 import com.azure.firechatapp.models.Message
+import com.azure.firechatapp.models.TotalMessagesEvent
 import com.azure.firechatapp.toast
+import com.azure.firechatapp.utils.RxBus
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.*
@@ -117,14 +119,15 @@ class ChatFragment : Fragment() {
                     messageList.addAll(messages.asReversed())
                     adapter.notifyDataSetChanged()
                     _view.recyclerView.smoothScrollToPosition(messageList.size)
+                    RxBus.publish(TotalMessagesEvent(messageList.size))
                 }
             }
         })
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         chatSubscription?.remove()
-        super.onDestroy()
+        super.onDestroyView()
     }
 
 
