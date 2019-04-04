@@ -3,7 +3,6 @@ package com.azure.firechatapp.activities
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
-import android.view.Menu
 import android.view.MenuItem
 import com.azure.firechatapp.R
 import com.azure.firechatapp.adapters.PagerAdapter
@@ -36,8 +35,10 @@ class MainActivity : ToolbarActivity() {
 
     private fun setUpViewPager(adapter: PagerAdapter){
         viewPager.adapter = adapter
-        // Keep in memory 3 tabs. Use with caution
+
+        // Keep in memory 3 tabs. Use with caution (Only when the number of tabs is little)
         viewPager.offscreenPageLimit = 3
+
         viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}

@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.azure.firechatapp.R
+import com.azure.firechatapp.models.TotalMessagesEvent
 import com.azure.firechatapp.toast
 import com.azure.firechatapp.utils.CircleTransform
+import com.azure.firechatapp.utils.RxBus
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.*
@@ -44,7 +46,10 @@ class InfoFragment : Fragment() {
         setUpCurrentUserInfoUI()
 
         // Total messages firebase style
-        subscribeToTotalMessagesFirebaseStyle()
+        // subscribeToTotalMessagesFirebaseStyle()
+
+        // Total messages event bus + reactive style
+        subscribeToTotalMessagesEventBusReactiveStyle()
 
         return _view
     }
@@ -82,6 +87,12 @@ class InfoFragment : Fragment() {
                     _view.textViewInfoTotalMessages.text = "${it.size()}"
                 }
             }
+        })
+    }
+
+    private fun subscribeToTotalMessagesEventBusReactiveStyle(){
+        RxBus.listen(TotalMessagesEvent::class.java).subscribe({
+            _view.textViewInfoTotalMessages.text = "${it.total}"
         })
     }
 
