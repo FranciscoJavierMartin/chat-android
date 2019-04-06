@@ -80,7 +80,7 @@ class ChatFragment : Fragment() {
             if(messageText.isNotEmpty()){
                 val photo = currentUser.photoUrl?.let { currentUser.photoUrl.toString() } ?: run { "" }
 
-                val message = Message(currentUser.uid, messageText, currentUser.photoUrl.toString(), Date())
+                val message = Message(currentUser.uid, messageText, photo, Date())
                 saveMessage(message)
                 _view.editTextMessage.setText("")
             }
